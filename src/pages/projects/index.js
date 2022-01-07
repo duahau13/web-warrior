@@ -14,19 +14,21 @@ export default function AllProjects({ data }) {
         <h2>Portfolio</h2>
         <h3>Projects & Websites I've created</h3>
         <div className={styles.projects}>
-          {projects.map(project => (
-            <Link to={"/projects/" + project.frontmatter.slug} key={project.id}>
-              <div>
-                <GatsbyImage
-                  image={getImage(
-                    project.frontmatter.thumb.childImageSharp.gatsbyImageData
-                  )}
-                />
-                <h3>{project.frontmatter.title}</h3>
-                <p>{project.frontmatter.stack}</p>
-              </div>
-            </Link>
-          ))}
+          {projects.map(project => {
+            const { slug, title, stack, thumb } = project.frontmatter
+            return (
+              <Link to={"/projects/" + slug} key={project.id}>
+                <div>
+                  <GatsbyImage
+                    image={getImage(thumb.childImageSharp.gatsbyImageData)}
+                    alt="title"
+                  />
+                  <h3>{title}</h3>
+                  <p>{stack}</p>
+                </div>
+              </Link>
+            )
+          })}
         </div>
         <p>Like what you see? Email me at {contact} for a quote.</p>
       </div>

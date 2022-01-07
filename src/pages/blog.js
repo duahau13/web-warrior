@@ -1,5 +1,5 @@
 import React from "react"
-import Layout from "../../components/Layout"
+import Layout from "../components/Layout"
 import { graphql, Link } from "gatsby"
 
 export default function AllBlogPosts({ data }) {
@@ -12,9 +12,10 @@ export default function AllBlogPosts({ data }) {
         <h2>Latest blog posts</h2>
         <div>
           {posts.map(post => {
+            const { slug, id } = post
             const { title, category } = post.frontmatter
             return (
-              <Link to={post.slug} key={post.id}>
+              <Link to={slug} key={id}>
                 <h3>{title}</h3>
                 <p>{category}</p>
               </Link>
