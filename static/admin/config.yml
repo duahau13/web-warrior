@@ -2,22 +2,99 @@ backend:
   name: git-gateway
   branch: master # Branch to update (optional; defaults to master)
 
+local_backend: true
+
 media_folder: static/images
 public_folder: /images
+slug:
+  encoding: "ascii"
 
 collections:
   - name: "post"
     label: "Posts"
+    label_singular: "Post"
     folder: "content/posts"
     create: true
-    slug: "index"
+    identifier_field: name
+    slug: "{{fields.slug}}"
     media_folder: ""
     public_folder: ""
-    path: "{{title}}/index"
+    path: "{{year}}{{month}}{{day}}-{{slug}}/index"
     editor:
       preview: false
     fields:
+      - {
+          label: "Post Type",
+          name: "postType",
+          widget: "hidden",
+          default: "post",
+        }
       - { label: "Title", name: "title", widget: "string" }
+      - { label: "Slug", name: "slug", required: true, widget: "string" }
       - { label: "Publish Date", name: "date", widget: "datetime" }
       - { label: "Featured Image", name: "featuredImage", widget: "image" }
       - { label: "Body", name: "body", widget: "markdown" }
+      - label: "Related Post"
+        name: "relatedPost"
+        widget: "relation"
+        collection: "post"
+        display_fields: ["title"]
+        search_fields: ["title", "body"]
+        value_field: "title"
+        multiple: true
+        max: 6
+        required: false
+  - name: "setting"
+    label: "Settings"
+    delete: false # Prevent users from deleting documents in this collection
+    editor:
+      preview: false
+    files:
+      - name: "siteSettings"
+        label: "Site Settings"
+        file: "content/_data/settings.json"
+        description: "General Site Settings"
+        fields:
+          - { label: "Global title", name: "siteTitle", widget: "string" }
+          - label: "Post Settings"
+            name: postSetting
+            widget: "object"
+            fields:
+              - {
+                  label: "Number of posts on frontpage",
+                  name: frontLimit,
+                  widget: number,
+                  min: 1,
+                  max: 10,
+                }
+              - { label: "Default Author", name: defaultAuthor, widget: string }
+              - {
+                  label: "Default Thumbnail",
+                  name: defaultThumbnail,
+                  widget: image,
+                  class: "thumb",
+                  required: false,
+                }
+
+      - name: "author"
+        label: "Authors"
+        file: "content/_data/authors.yml"
+        description: "Author descriptions"
+        fields:
+          - name: author
+            label: Authors
+            label_singular: "Author"
+            widget: list
+            fields:
+              - {
+                  label: "Name",
+                  name: "name",
+                  widget: "string",
+                  hint: "First and Last",
+                }
+              - { label: "Avatar", name: "avatar", widget: "image" }
+              - {
+                  label: "Description",
+                  name: "description",
+                  widget: "markdown",
+                }
