@@ -16,21 +16,21 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `image`,
-        path: `${__dirname}/content/images`,
+        path: `${__dirname}/src/images`,
       },
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `posts`,
-        path: `${__dirname}/content/posts/`,
+        path: `${__dirname}/src/posts/`,
       },
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        name: `pages`,
-        path: `${__dirname}/content/pages/`,
+        name: `projects`,
+        path: `${__dirname}/src/projects/`,
       },
     },
     {
@@ -43,7 +43,7 @@ module.exports = {
   siteMetadata: {
     title: "Web Warrior",
     description: "web dev portfolio",
-    copyright: "This website is copyright 2021 by Web Warrior",
+    copyright: "This website is copyright 2022 by Web Warrior",
     contact: "info@webwarrior.com",
   },
 }
