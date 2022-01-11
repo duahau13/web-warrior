@@ -12,12 +12,11 @@ export default function AllBlogPosts({ data }) {
         <h2>Latest blog posts</h2>
         <div>
           {posts.map(post => {
-            const { slug, id } = post
-            const { title, category } = post.frontmatter
+            const { id } = post
+            const { slug, title } = post.frontmatter
             return (
               <Link to={slug} key={id}>
                 <h3>{title}</h3>
-                <p>{category}</p>
               </Link>
             )
           })}
@@ -29,14 +28,13 @@ export default function AllBlogPosts({ data }) {
 
 export const query = graphql`
   {
-    allMdx(sort: { fields: frontmatter___date, order: DESC }) {
+    allMdx(filter: { frontmatter: { postType: { eq: "post" } } }) {
       nodes {
-        frontmatter {
-          title
-          date(formatString: "MMMM DD, YYYY")
-        }
         id
-        slug
+        frontmatter {
+          slug
+          title
+        }
       }
     }
   }

@@ -38,7 +38,8 @@ export default function AllProjects({ data }) {
 
 export const query = graphql`
   query ProjectsPage {
-    projects: allMarkdownRemark(
+    projects: allMdx(
+      filter: { frontmatter: { postType: { eq: "page" } } }
       sort: { fields: frontmatter___date, order: DESC }
     ) {
       nodes {
@@ -47,14 +48,11 @@ export const query = graphql`
           stack
           slug
           thumb {
-            relativePath
-            name
             childImageSharp {
               gatsbyImageData(layout: FULL_WIDTH, placeholder: BLURRED)
             }
           }
         }
-        id
       }
     }
     contact: site {

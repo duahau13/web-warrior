@@ -18,7 +18,7 @@ export default function Home({ data }) {
             My Portfolio
           </Link>
         </div>
-        <GatsbyImage image={image} />
+        <GatsbyImage image={image} alt="banner" />
       </section>
     </Layout>
   )
