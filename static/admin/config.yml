@@ -13,15 +13,17 @@ collections:
   - name: "post"
     label: "Posts"
     label_singular: "Post"
-    folder: "content/posts"
+    folder: "src/content/posts"
     create: true
     identifier_field: name
     slug: "{{fields.slug}}"
     media_folder: ""
     public_folder: ""
     path: "{{year}}{{month}}{{day}}-{{slug}}/index"
+    extension: mdx
+    format: "frontmatter"
     editor:
-      preview: false
+      preview: true
     fields:
       - {
           label: "Post Type",
@@ -30,20 +32,33 @@ collections:
           default: "post",
         }
       - { label: "Title", name: "title", widget: "string" }
+      - {
+          label: "Author",
+          name: "author",
+          widget: "relation",
+          collection: "author",
+          display_fields: ["name"],
+          search_fields: ["name"],
+          value_field: "name",
+          required: false,
+          multiple: false,
+        }
       - { label: "Slug", name: "slug", required: true, widget: "string" }
       - { label: "Publish Date", name: "date", widget: "datetime" }
       - { label: "Featured Image", name: "featuredImage", widget: "image" }
-      - { label: "Body", name: "body", widget: "markdown" }
-      - label: "Related Post"
-        name: "relatedPost"
-        widget: "relation"
-        collection: "post"
-        display_fields: ["title"]
-        search_fields: ["title", "body"]
-        value_field: "title"
-        multiple: true
-        max: 6
-        required: false
+      - { label: "Body", name: "body", widget: "markdown", modes: ["raw"] }
+      - {
+          label: "Related Post",
+          name: "relatedPost",
+          widget: "relation",
+          collection: "post",
+          display_fields: ["title"],
+          search_fields: ["title", "body"],
+          value_field: "slug",
+          multiple: true,
+          max: 6,
+          required: false,
+        }
   - name: "setting"
     label: "Settings"
     delete: false # Prevent users from deleting documents in this collection
@@ -52,7 +67,7 @@ collections:
     files:
       - name: "siteSettings"
         label: "Site Settings"
-        file: "content/_data/settings.json"
+        file: "src/content/_data/settings.json"
         description: "General Site Settings"
         fields:
           - { label: "Global title", name: "siteTitle", widget: "string" }
@@ -75,26 +90,31 @@ collections:
                   class: "thumb",
                   required: false,
                 }
-
-      - name: "author"
-        label: "Authors"
-        file: "content/_data/authors.yml"
-        description: "Author descriptions"
-        fields:
-          - name: author
-            label: Authors
-            label_singular: "Author"
-            widget: list
-            fields:
-              - {
-                  label: "Name",
-                  name: "name",
-                  widget: "string",
-                  hint: "First and Last",
-                }
-              - { label: "Avatar", name: "avatar", widget: "image" }
-              - {
-                  label: "Description",
-                  name: "description",
-                  widget: "markdown",
-                }
+  - name: "author"
+    label: "Author"
+    folder: "src/content/authors"
+    create: true
+    description: "Author descriptions"
+    identifier_field: name
+    slug: "{{fields.slug}}"
+    media_folder: ""
+    public_folder: ""
+    path: "{{slug}}/index"
+    editor:
+      preview: true
+    fields:
+      - {
+          label: "Post Type",
+          name: "postType",
+          widget: "hidden",
+          default: "author",
+        }
+      - {
+          label: "Name",
+          name: "name",
+          widget: "string",
+          hint: "First and Last",
+        }
+      - { label: "Slug", name: "slug", required: true, widget: "string" }
+      - { label: "Avatar", name: "avatar", widget: "image" }
+      - { label: "Description", name: "description", widget: "markdown" }
