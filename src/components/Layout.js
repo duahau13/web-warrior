@@ -4,11 +4,11 @@ import "../styles/global.css"
 
 export default function Layout({ children }) {
   return (
-    <div className="layout">
+    <div className="container mx-auto">
       <Navbar />
       <div className="content">{children}</div>
       <footer>
-        <p>Copyright 2021 Web Warrior</p>
+        <p className="text-center">Copyright 2021 Web Warrior</p>
       </footer>
     </div>
   )
