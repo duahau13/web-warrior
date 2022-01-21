@@ -12,7 +12,7 @@ module.exports = {
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-netlify-cms`,
-    `gatsby-plugin-postcss`,
+    `@chakra-ui/gatsby-plugin`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {

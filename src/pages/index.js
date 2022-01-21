@@ -1,25 +1,40 @@
-import { Link, graphql } from "gatsby"
+import { graphql, Link } from "gatsby"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import React from "react"
 import Layout from "../components/Layout"
-import * as styles from "../styles/home.module.css"
+import {
+  VStack,
+  Flex,
+  SimpleGrid,
+  Button,
+  Heading,
+  Box,
+} from "@chakra-ui/react"
 
 export default function Home({ data }) {
   console.log(data)
   const image = getImage(data.file.childImageSharp.gatsbyImageData)
   return (
     <Layout>
-      <section className={styles.header}>
-        <div>
-          <h2>Design!!!!!!</h2>
-          <h3>Develop & Deploy</h3>
+      <SimpleGrid columns={[1, null, 2]}>
+        <Flex direction="column" justify="center">
+          <Heading as="h2" size="4xl">
+            Design!!!!!!
+          </Heading>
+          <Heading as="h3" size="2xl" mb={5}>
+            Develop & Deploy
+          </Heading>
           <p>UX designer & web developer bases in HCMC.</p>
-          <Link className={styles.btn} to="/projects">
-            My Portfolio
+          <Link to="/projects">
+            <Button colorScheme="teal" mt={5}>
+              My projects
+            </Button>
           </Link>
-        </div>
-        <GatsbyImage image={image} alt="banner" />
-      </section>
+        </Flex>
+        <Box boxSize="full">
+          <GatsbyImage image={image} alt="banner" />
+        </Box>
+      </SimpleGrid>
     </Layout>
   )
 }
