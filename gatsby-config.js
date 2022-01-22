@@ -7,7 +7,7 @@
 module.exports = {
   /* Your site config here */
   plugins: [
-    `gatsby-transformer-remark`,
+    // `gatsby-transformer-remark`,
     `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
