@@ -3,14 +3,14 @@ const path = require("path")
 exports.createPages = async ({ graphql, actions }) => {
   const { data } = await graphql(`
     {
-      allMarkdownRemark {
+      pages: allMdx(filter: { frontmatter: { postType: { eq: "page" } } }) {
         nodes {
           frontmatter {
             slug
           }
         }
       }
-      allMdx {
+      posts: allMdx(filter: { frontmatter: { postType: { eq: "post" } } }) {
         nodes {
           frontmatter {
             slug
@@ -20,16 +20,16 @@ exports.createPages = async ({ graphql, actions }) => {
     }
   `)
 
-  data.allMarkdownRemark.nodes.forEach(node => {
+  data.pages.nodes.forEach(node => {
     actions.createPage({
       path: "/projects/" + node.frontmatter.slug,
       component: path.resolve("./src/templates/project-details.js"),
       context: { slug: node.frontmatter.slug },
     })
   })
-  data.allMdx.nodes.forEach(node => {
+  data.posts.nodes.forEach(node => {
     actions.createPage({
-      path: node.frontmatter.slug,
+      path: "/blog/" + node.frontmatter.slug,
       component: path.resolve("./src/templates/post-template.js"),
       context: { slug: node.frontmatter.slug },
     })
