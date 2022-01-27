@@ -11,7 +11,7 @@ export default function Layout({ children }) {
         {children}
         <Box as="footer">
           <Text my={10} align="center">
-            Copyright {new Date().getFullYear()} Web Warrior
+            Copyright {new Date().getFullYear()} Gatsby Warrior
           </Text>
         </Box>
       </Container>

@@ -13,6 +13,20 @@ module.exports = {
     `gatsby-transformer-sharp`,
     `gatsby-plugin-netlify-cms`,
     `@chakra-ui/gatsby-plugin`,
+    `gatsby-plugin-prettier-build`,
+    `gatsby-plugin-offline`,
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `My tiny blog`,
+        short_name: `Tiny blog`,
+        start_url: `/`,
+        background_color: `#f7f0eb`,
+        theme_color: `#a2466c`,
+        display: `standalone`,
+        icon: `src/images/icon.svg`,
+      },
+    },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -42,9 +56,13 @@ module.exports = {
     },
   ],
   siteMetadata: {
-    title: "Web Warrior",
-    description: "web dev portfolio",
-    copyright: "This website is copyright 2022 by Web Warrior",
-    contact: "info@webwarrior.com",
+    siteTitle: "Gatsby Warrior",
+    titleTemplate: "%s · The Real Hero",
+    siteDescription: "web dev portfolio",
+    copyright: "This website is copyright 2022 by Gatsby Warrior",
+    contact: "info@gatsbywarrior.com",
+    url: "https://gatsby-warrior.netlify.app",
+    siteImage: "/my-portrait.jpg",
+    twitter: "@gatsbywarrior",
   },
 }

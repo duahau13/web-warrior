@@ -1,20 +1,12 @@
-import { Link, graphql, useStaticQuery } from "gatsby"
+import { Link } from "gatsby"
 import React from "react"
+import useSiteMetadata from "../SiteMetadata"
 import { useState } from "react"
 import { Box, Flex, Stack } from "@chakra-ui/react"
 import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons"
 
 export default function Navbar() {
-  const data = useStaticQuery(graphql`
-    query SiteInfo {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `)
-  const { title } = data.site.siteMetadata
+  const { siteTitle } = useSiteMetadata()
   const [show, setShow] = useState(false)
   const toggleMenu = () => setShow(!show)
   const navItems = [
@@ -23,6 +15,9 @@ export default function Navbar() {
     ["Blog", "/blog"],
     ["Contact", "/contact"],
   ]
+  const activeStyles = {
+    borderColor: "black",
+  }
 
   return (
     <Flex
@@ -41,7 +36,7 @@ export default function Navbar() {
       mx="auto"
     >
       <Link to="/">
-        <h1>{title}</h1>
+        <h1>{siteTitle}</h1>
       </Link>
       <Box display={{ base: "block", md: "none" }} onClick={toggleMenu}>
         {show ? <CloseIcon /> : <HamburgerIcon />}
@@ -59,7 +54,7 @@ export default function Navbar() {
         left={0}
         w={{ base: "full", md: "auto" }}
         bg={{ base: "green.200", md: "none" }}
-        pb={{ base: "4", md: "0" }}
+        py={{ base: "4", md: "0" }}
       >
         {navItems.map(([title, url], index) => (
           <Box
@@ -70,7 +65,9 @@ export default function Navbar() {
             borderColor="transparent"
             _hover={{ borderColor: "black" }}
           >
-            <Link to={url}>{title}</Link>
+            <Link to={url} activeStyle={activeStyles}>
+              {title}
+            </Link>
           </Box>
         ))}
       </Stack>
