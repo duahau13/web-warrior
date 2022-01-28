@@ -2,7 +2,7 @@ import { graphql, Link } from "gatsby"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import React from "react"
 import Layout from "../components/layout"
-import SEO from "../components/SEO"
+import Seo from "../components/Seo"
 import { Flex, SimpleGrid, Button, Heading, Box } from "@chakra-ui/react"
 
 export default function Home({ data }) {
@@ -10,7 +10,7 @@ export default function Home({ data }) {
   const image = getImage(data.file.childImageSharp.gatsbyImageData)
   return (
     <Layout>
-      <SEO />
+      <Seo />
       <SimpleGrid columns={[1, null, 2]}>
         <Flex direction="column" justify="center">
           <Heading as="h2" size="4xl">

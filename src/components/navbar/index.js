@@ -6,7 +6,9 @@ import { Box, Flex, Stack } from "@chakra-ui/react"
 import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons"
 
 export default function Navbar() {
-  const { siteTitle } = useSiteMetadata()
+  const {
+    siteMetadata: { defaultTitle },
+  } = useSiteMetadata()
   const [show, setShow] = useState(false)
   const toggleMenu = () => setShow(!show)
   const navItems = [
@@ -36,7 +38,7 @@ export default function Navbar() {
       mx="auto"
     >
       <Link to="/">
-        <h1>{siteTitle}</h1>
+        <h1>{defaultTitle}</h1>
       </Link>
       <Box display={{ base: "block", md: "none" }} onClick={toggleMenu}>
         {show ? <CloseIcon /> : <HamburgerIcon />}

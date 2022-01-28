@@ -1,28 +1,51 @@
 import React from "react"
 import { graphql } from "gatsby"
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import Layout from "../components/layout"
+import Seo from "../components/Seo"
+import RelatedPost from "../components/RelatedPost"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 
-export default function PostDetail({ data }) {
-  console.log(data)
-  const { title } = data.mdx.frontmatter
-  const { body } = data.mdx
+export default function PostDetail({ data, pageContext }) {
+  console.log(pageContext)
+  const { title, featuredImage } = data.mdx.frontmatter
+  const { body, excerpt } = data.mdx
 
   return (
-    <Layout>
-      <h2>{title}</h2>
-      <MDXRenderer>{body}</MDXRenderer>
-    </Layout>
+    <>
+      <Seo
+        title={title}
+        article
+        description={excerpt}
+        image={featuredImage.publicURL}
+      />
+      <Layout>
+        <GatsbyImage
+          image={getImage(featuredImage.childImageSharp.gatsbyImageData)}
+          alt={title}
+        />
+        <h2>{title}</h2>
+        <MDXRenderer>{body}</MDXRenderer>
+        <RelatedPost />
+      </Layout>
+    </>
   )
 }
 
 export const query = graphql`
-  query ($slug: String) {
+  query slugQuery($slug: String) {
     mdx(frontmatter: { slug: { eq: $slug } }) {
       frontmatter {
         title
+        featuredImage {
+          childImageSharp {
+            gatsbyImageData(placeholder: BLURRED)
+          }
+          publicURL
+        }
       }
       body
+      excerpt(pruneLength: 160)
     }
   }
 `
