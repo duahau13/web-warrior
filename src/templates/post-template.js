@@ -3,7 +3,6 @@ import { graphql } from "gatsby"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import Layout from "../components/layout"
 import Seo from "../components/Seo"
-import RelatedPost from "../components/RelatedPost"
 import { MDXRenderer } from "gatsby-plugin-mdx"
 
 export default function PostDetail({ data, pageContext }) {
@@ -26,7 +25,6 @@ export default function PostDetail({ data, pageContext }) {
         />
         <h2>{title}</h2>
         <MDXRenderer>{body}</MDXRenderer>
-        <RelatedPost />
       </Layout>
     </>
   )
