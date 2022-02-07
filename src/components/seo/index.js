@@ -2,7 +2,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Helmet } from "react-helmet"
 import { useLocation } from "@reach/router"
-import useSiteMetadata from "./SiteMetadata"
+import useSiteMetadata from "../SiteMetadata"
 
 const Seo = ({ title, description, image, article }) => {
   const { pathname } = useLocation()

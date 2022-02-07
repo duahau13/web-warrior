@@ -2,7 +2,7 @@ import { graphql, Link } from "gatsby"
 import { GatsbyImage, getImage } from "gatsby-plugin-image"
 import React from "react"
 import Layout from "../components/layout"
-import Seo from "../components/Seo"
+import Seo from "../components/seo"
 import { Flex, SimpleGrid, Button, Heading, Box } from "@chakra-ui/react"
 
 export default function Home({ data }) {
